@@ -20,10 +20,10 @@ class G1RoughCfg( LeggedRobotCfg ):
         }
     
     class env(LeggedRobotCfg.env):
+        num_envs = 4096
         num_observations = 47
         num_privileged_obs = 50
         num_actions = 12
-
 
     class domain_rand(LeggedRobotCfg.domain_rand):
         randomize_friction = True
@@ -57,7 +57,7 @@ class G1RoughCfg( LeggedRobotCfg ):
         decimation = 4
 
     class asset( LeggedRobotCfg.asset ):
-        file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/g1_description/g1_12dof.urdf'
+        file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/g1/g1_12dof.urdf'
         name = "g1"
         foot_name = "ankle_roll"
         penalize_contacts_on = ["hip", "knee"]
@@ -66,21 +66,26 @@ class G1RoughCfg( LeggedRobotCfg ):
         flip_visual_attachments = False
   
     class rewards( LeggedRobotCfg.rewards ):
+        only_positive_rewards = True # if true negative total rewards are clipped at zero (avoids early termination problems)
         soft_dof_pos_limit = 0.9
         base_height_target = 0.78
         
         class scales( LeggedRobotCfg.rewards.scales ):
+            termination = -0.0
             tracking_lin_vel = 1.0
             tracking_ang_vel = 0.5
             lin_vel_z = -2.0
             ang_vel_xy = -0.05
             orientation = -1.0
+            torques = -0.00001
             base_height = -10.0
             dof_acc = -2.5e-7
             dof_vel = -1e-3
             feet_air_time = 0.0
             collision = 0.0
+            feet_stumble = -0.0
             action_rate = -0.01
+            stand_still = -0.
             dof_pos_limits = -5.0
             alive = 0.15
             hip_pos = -1.0
@@ -89,6 +94,7 @@ class G1RoughCfg( LeggedRobotCfg ):
             contact = 0.18
 
 class G1RoughCfgPPO( LeggedRobotCfgPPO ):
+    runner_class_name = 'OnPolicyRunner'
     class policy:
         init_noise_std = 0.8
         actor_hidden_dims = [32]
@@ -98,13 +104,14 @@ class G1RoughCfgPPO( LeggedRobotCfgPPO ):
         rnn_type = 'lstm'
         rnn_hidden_size = 64
         rnn_num_layers = 1
-        
+
     class algorithm( LeggedRobotCfgPPO.algorithm ):
         entropy_coef = 0.01
     class runner( LeggedRobotCfgPPO.runner ):
-        policy_class_name = "ActorCriticRecurrent"
+        policy_class_name = 'ActorCriticRecurrent'
+        algorithm_class_name = 'PPO'
+        num_steps_per_env = 24 # per iteration
         max_iterations = 10000
         run_name = ''
         experiment_name = 'g1'
-
-  
+        save_interval = 50 # check for potential saves every this many iterations
