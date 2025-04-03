@@ -613,7 +613,7 @@
     </collision>
   </link>
   <joint name="left_shoulder_roll_joint" type="fixed">
-    <origin xyz="0 0.038 -0.013831" rpy="-0.2 0 0"/>
+    <origin xyz="0 0.038 -0.013831" rpy="-0 0 0"/>
     <parent link="left_shoulder_pitch_link"/>
     <child link="left_shoulder_roll_link"/>
     <axis xyz="1 0 0"/>
@@ -758,7 +758,7 @@
     </collision>
   </link>
   <joint name="right_shoulder_roll_joint" type="fixed">
-    <origin xyz="0 -0.038 -0.013831" rpy="0.2 0 0"/>
+    <origin xyz="0 -0.038 -0.013831" rpy="0 0 0"/>
     <parent link="right_shoulder_pitch_link"/>
     <child link="right_shoulder_roll_link"/>
     <axis xyz="1 0 0"/>
