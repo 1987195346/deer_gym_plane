@@ -114,4 +114,4 @@ class G1RoughCfgPPO( LeggedRobotCfgPPO ):
         max_iterations = 10000
         run_name = ''
         experiment_name = 'g1'
-        save_interval = 50 # check for potential saves every this many iterations
+        save_interval = 500 # check for potential saves every this many iterations
