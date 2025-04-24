@@ -26,11 +26,10 @@ arm_waist_kps: [300, 300, 300,
 arm_waist_kds: [3, 3, 3, 
                 2, 2, 2, 2, 1, 1, 1,
                 2, 2, 2, 2, 1, 1, 1]
-#left_elbow_joint = right_elbow_joint = 0 1.3 0
-#left_shoulder_roll_joint = right_shoulder_roll_joint = 0 0 0
+
 arm_waist_target: [ 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 0, 0]
+                    0, 0, 0, 0.8, 0, 0, 0,
+                    0, 0, 0, 0.8, 0, 0, 0]
 
 ang_vel_scale: 0.25
 dof_pos_scale: 1.0
